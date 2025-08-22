@@ -3,10 +3,10 @@ module instr_mem(
     output [31:0] instr
 );
 
-reg [31:0] mem [0:15]; // 32 columns, 16 rows of memory (64 bytes total)        
+reg [31:0] mem [0:255]; // 32 columns, 256 rows of memory (1kb memory total)        
 
 initial begin
-    $readmemh("../rv32i_gcc/build/", mem);  // Type the appropriate location of the hex file 
+    $readmemh("/home/sriram/Projects/RV32i_v1/rv32i_gcc/output_hex/add.hex", mem);  // location of the hex file 
 end
 assign instr = mem[pc[31:2]];
 endmodule
