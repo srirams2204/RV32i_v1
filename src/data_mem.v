@@ -1,48 +1,86 @@
+// Little-endian data memory for RV32I
+// - SB/SH/SW and LB/LBU/LH/LHU/LW supported
+// - Synchronous read + write
 module data_mem(
-    output [31:0] read_data,  // 32-bit data read from memory
-    input [31:0] addr,         // 32-bit byte address
-    input [31:0] write_data,   // 32-bit data to write
-    input mem_read,             // Read enable signal
-    input mem_write,            // Write enable signal
-    input clk,                  // Clock signal
-    input rst                   // Reset signal
+    output reg [31:0] read_data,
+    input [31:0] addr,
+    input [31:0] write_data,
+    input mem_read,
+    input mem_write,
+    input [1:0] mem_size,
+    input is_signed,
+    input clk,
+    input rst
 );
 
-// PARAMETER: Define memory size.
-// The memory size is in bytes. A good starting size is 1KB.
 parameter MEMORY_SIZE_BYTES = 1024;
 
-// Internal memory array: byte-addressable
 reg [7:0] memory [0:MEMORY_SIZE_BYTES-1];
 
-// Internal variable for the for-loop
-integer i;
-
-// Combinational Read Logic
-// For LW, we need to read 4 bytes starting from the word-aligned address.
-// The low bits of the address are ignored for word alignment.
-assign read_data = (mem_read) ? {
-    memory[{addr[31:2], 2'b0} + 3],
-    memory[{addr[31:2], 2'b0} + 2],
-    memory[{addr[31:2], 2'b0} + 1],
-    memory[{addr[31:2], 2'b0} + 0]
-} : 32'b0;
-
-// Sequential Write & Reset Logic
 always @(posedge clk or posedge rst) begin
     if (rst) begin
-        // Reset logic to clear all memory on reset
-        for (i = 0; i < MEMORY_SIZE_BYTES; i = i + 1) begin
+        for (integer i = 0; i < MEMORY_SIZE_BYTES; i = i + 1) begin
             memory[i] <= 8'b0;
         end
-    end else if (mem_write) begin
-        // For SW, we write 4 bytes to the word-aligned address.
-        // Use concatenation for the address to avoid multiplication.
-        // Little-endian write: MSB of data to highest address byte, LSB to lowest.
-        memory[{addr[31:2], 2'b0} + 3] <= write_data[31:24];
-        memory[{addr[31:2], 2'b0} + 2] <= write_data[23:16];
-        memory[{addr[31:2], 2'b0} + 1] <= write_data[15:8];
-        memory[{addr[31:2], 2'b0} + 0] <= write_data[7:0];
+        read_data <= 32'b0;
+    end else begin
+        // Write path (little-endian)
+        if (mem_write) begin
+            case (mem_size)
+                2'b00: begin // SB
+                    memory[addr] <= write_data[7:0];
+                end
+                2'b01: begin // SH
+                    memory[addr]     <= write_data[7:0];
+                    memory[addr + 1] <= write_data[15:8];
+                end
+                2'b10: begin // SW
+                    memory[addr]     <= write_data[7:0];
+                    memory[addr + 1] <= write_data[15:8];
+                    memory[addr + 2] <= write_data[23:16];
+                    memory[addr + 3] <= write_data[31:24];
+                end
+                default: ;
+            endcase
+        end
+
+        // Read path (little-endian)
+        if (mem_read) begin
+            case (mem_size)
+                2'b00: begin // LB, LBU
+                    reg [7:0] byte_data;
+                    byte_data = memory[addr];
+
+                    if (is_signed) begin
+                        read_data <= {{24{byte_data[7]}}, byte_data};
+                    end else begin
+                        read_data <= {24'b0, byte_data};
+                    end
+                end
+                2'b01: begin // LH, LHU
+                    reg [15:0] half_word;
+                    half_word = {memory[addr+1], memory[addr]};
+
+                    if (is_signed) begin
+                        read_data <= {{16{half_word[15]}}, half_word};
+                    end else begin
+                        read_data <= {16'b0, half_word};
+                    end
+                end
+                2'b10: begin // LW
+                    read_data <= {
+                        memory[addr + 3],
+                        memory[addr + 2],
+                        memory[addr + 1],
+                        memory[addr]
+                    };
+                end
+                default: begin
+                    read_data <= 32'b0;
+                end
+            endcase
+        end
     end
 end
+
 endmodule
