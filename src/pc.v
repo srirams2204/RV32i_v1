@@ -7,9 +7,9 @@ always @(posedge clk or posedge rst)begin
     if (rst)begin
         pc_out <= 32'h00000000;
     end else if (pc_jmp) begin
-        pc_out <= pc_in;
+        pc_out <= pc_in; // pc_out = pc_in if pc_jump HIGH and posedge clk
     end else begin
-        pc_out <= pc_out + 32'h00000004;
+        pc_out <= pc_out + 32'h00000004; // increment by 4 every posedge
     end
 end
 endmodule
