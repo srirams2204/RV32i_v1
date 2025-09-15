@@ -12,31 +12,21 @@ module instr_mem_tb;
   );
 
   initial begin
-    $dumpfile("waveform/instr_mem.vcd");   // for GTKWave
+    $dumpfile("waveform/instr_mem.vcd");   
     $dumpvars(0, instr_mem_tb);
-
-    // Start at PC = 0
     pc = 0;
-
     #5;
     $display("PC = %h | Instr = %h", pc, instr);
-
-    // Step through memory
     pc = pc + 4; #5;
     $display("PC = %h | Instr = %h", pc, instr);
-
     pc = pc + 4; #5;
     $display("PC = %h | Instr = %h", pc, instr);
-
     pc = pc + 4; #5;
     $display("PC = %h | Instr = %h", pc, instr);
-
-    // Run through first 10 instructions
     repeat (10) begin
       pc = pc + 4; #5;
       $display("PC = %h | Instr = %h", pc, instr);
     end
-
     $finish;
   end
 

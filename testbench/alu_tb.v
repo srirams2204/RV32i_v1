@@ -7,7 +7,6 @@ module alu_tb;
     reg  [3:0]  sel;
     wire [31:0] alu_out;
     wire zero, lt_signed, lt_unsigned;
-    wire negative, carry, overflow;
 
     // DUT instantiation
     alu dut (
@@ -17,18 +16,15 @@ module alu_tb;
         .alu_out(alu_out),
         .zero(zero),
         .lt_signed(lt_signed),
-        .lt_unsigned(lt_unsigned),
-        .negative(negative),
-        .carry(carry),
-        .overflow(overflow)
+        .lt_unsigned(lt_unsigned)
     );
 
     // Task for displaying results
     task show_result;
         begin
-            $display("time=%0t | sel=%b | A=%0d (0x%h) | B=%0d (0x%h) | OUT=%0d (0x%h) | Z=%b N=%b C=%b V=%b | LT_S=%b LT_U=%b",
+            $display("time=%0t | sel=%b | A=%0d (0x%h) | B=%0d (0x%h) | OUT=%0d (0x%h) | Z=%b | LT_S=%b | LT_U=%b",
                      $time, sel, A, A, B, B, alu_out, alu_out,
-                     zero, negative, carry, overflow, lt_signed, lt_unsigned);
+                     zero, lt_signed, lt_unsigned);
         end
     endtask
 
