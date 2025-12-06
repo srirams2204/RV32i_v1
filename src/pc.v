@@ -1,15 +1,15 @@
-module pc(
+`include "rv_defs.vh"
+module pc (
     output reg [31:0] pc_out,
-    input [31:0] pc_in,
-    input clk, rst, pc_jmp
+    input [31:0] pc_nxt,
+    input clk, rst
 );
-always @(posedge clk or posedge rst)begin
-    if (rst)begin
-        pc_out <= 32'h00000000;
-    end else if (pc_jmp) begin
-        pc_out <= pc_in; // pc_out = pc_in if pc_jump HIGH and posedge clk
-    end else begin
-        pc_out <= pc_out + 32'h00000004; // increment by 4 every posedge
-    end
+
+always @(posedge clk) begin
+    if (rst)
+        pc_out <= `PC_RESET; // Reset PC to 0
+    else
+        pc_out <= pc_nxt;       // Update PC with input value
 end
+
 endmodule

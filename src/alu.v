@@ -1,14 +1,5 @@
-`define WIDTH 32
-`define ADD   4'b0000
-`define SUB   4'b0001
-`define XOR   4'b0010
-`define OR    4'b0011
-`define AND   4'b0100
-`define SLL   4'b0101
-`define SRL   4'b0110
-`define SRA   4'b0111
-`define SLT   4'b1000
-`define SLTU  4'b1001
+`timescale 1ns/1ps
+`include "rv_defs.vh"
 
 module alu (
     output reg [31:0] alu_out,
