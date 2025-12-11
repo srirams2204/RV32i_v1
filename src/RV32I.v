@@ -26,6 +26,8 @@ wire [31:0] pc_addr;     //PC output
 //PC Mux connection
 wire [31:0] pc_mux_in0; //PC mux input 0
 wire [31:0] pc_mux_in1; //PC mux input 1
+wire [31:0] pc_mux_in2; //PC mux input 2
+wire [31:0] pc_mux_in3; //PC mux input 3
 wire pc_src;         //PC mux select
 
 //Instruction Memory wires

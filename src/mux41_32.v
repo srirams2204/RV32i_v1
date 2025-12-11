@@ -11,8 +11,8 @@ always @(*) begin
     case (select)
         2'b00: mux_out = in0;
         2'b01: mux_out = in1;
-        2'b02: mux_out = in2;
-        2'b03: mux_out = in3;
+        2'b10: mux_out = in2;
+        2'b11: mux_out = in3;
         default: mux_out = 32'b0;
     endcase
 end

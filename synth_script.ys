@@ -1,0 +1,23 @@
+# Read the Verilog
+read_verilog data_mem.v
+
+# Set top module (replace with your real name)
+hierarchy -top data_mem
+
+# Convert behavioral always blocks → RTLIL processes
+proc
+
+# Convert processes to logic
+flatten
+opt
+fsm
+opt
+memory
+opt
+
+# Generic synthesis (no mapping)
+techmap
+opt
+
+# Show statistics
+stat

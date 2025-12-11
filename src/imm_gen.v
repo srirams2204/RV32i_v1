@@ -1,3 +1,4 @@
+`include "rv_defs.vh"
 module imm_gen (
     output reg [31:0] imm_out,
     input [31:0] instr_in,

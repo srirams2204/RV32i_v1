@@ -26,7 +26,8 @@ all: run
 # Compile only the selected source and testbench
 $(VVP_FILE): $(SRC_FILE) $(TB_FILE)
 	@mkdir -p $(SIM_DIR) $(WAVE_DIR)
-	$(IVERILOG) -o $(VVP_FILE) $(SRC_FILE) $(TB_FILE)
+	$(IVERILOG) -I $(SRC_DIR) -o $(VVP_FILE) $(SRC_FILE) $(TB_FILE)
+
 
 # Run simulation
 run: $(VVP_FILE)
