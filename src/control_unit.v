@@ -1,246 +1,265 @@
+`include "rv_defs.vh"
+
 module control_unit (
-    // -----------------------------------
-    // Register File 
-    // -----------------------------------
+    // Register File
     output reg reg_write,
 
-    // -----------------------------------
-    // ALU Input Control
-    // -----------------------------------
+    // ALU input select
     output reg alu_a_src,      // 0 = rs1, 1 = PC
     output reg alu_b_src,      // 0 = rs2, 1 = imm
 
-    // -----------------------------------
-    // DATA MEMORY Control 
-    // -----------------------------------
+    // Data Memory Control
     output reg mem_read,
     output reg mem_write,
-    output reg [1:0] mem_size,
-    output reg is_signed,
+    output reg [2:0] mem_funct3,
 
-    // -----------------------------------
-    // PC Source Control
-    // -----------------------------------
-    output reg pc_src,
+    // PC Select (2-bit select for your 4x1 mux)
+    output reg [1:0] pc_src,
 
-    // -----------------------------------
-    // Immediate Generator Control
-    // -----------------------------------
+    // Immediate Generator
     output reg [2:0] imm_sel,
 
-    // -----------------------------------
-    // Writeback MUX Select
-    // result_src:
-    //   2'b00 = ALU result
-    //   2'b01 = Data Memory
-    //   2'b10 = Immediate (LUI)
-    //   2'b11 = PC+4 (JAL / JALR)
-    // -----------------------------------
+    // Writeback MUX
     output reg [1:0] result_src,
 
-    // -----------------------------------
-    // Instruction Fields
-    // -----------------------------------
+    // ALU Control
+    output reg [3:0] alu_sel,
+
+    // Instruction fields
     input [2:0] funct3,
+    input [6:0] funct7,
     input [6:0] opcode,
 
-    // -----------------------------------
-    // ALU Flags
-    // -----------------------------------
+    // ALU flags
     input zero,
     input lt_signed,
     input lt_unsigned
 );
 
 always @(*) begin
-    // NOTHING HERE — all values must be assigned INSIDE each case
-    // You explicitly requested that **every case sets all signals**.
-    // This prevents accidental latches and logic conflicts.
 
+    // ==========================================================
+    // DEFAULT VALUES (used if no case matches)
+    // ==========================================================
+    reg_write   = 0;
+    alu_a_src   = 0;
+    alu_b_src   = 0;
+    mem_read    = 0;
+    mem_write   = 0;
+    mem_funct3  = funct3;
+    pc_src      = 2'b00;
+    imm_sel     = `IMM_NONE;
+    result_src  = 2'b00;
+    alu_sel     = `ADD;
+
+
+    // ==========================================================
+    // OPCODE CASE SELECT
+    // ==========================================================
     case (opcode)
 
-        // ============================================================
-        // R–TYPE
-        // ============================================================
-        `OPCODE_R_TYPE: begin
-            reg_write   = 1;
-            alu_a_src   = 0;
-            alu_b_src   = 0;
-            mem_read    = 0;
-            mem_write   = 0;
-            mem_size    = 2'b00;
-            is_signed   = 0;
-            pc_src      = 0;
-            imm_sel     = `IMM_NONE;
-            result_src  = 2'b00;   // ALU result
-        end
+    // ==========================================================
+    // R–TYPE
+    // ==========================================================
+    `OPCODE_R_TYPE: begin
+        reg_write   = 1;
+        alu_a_src   = 0;
+        alu_b_src   = 0;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_NONE;
+        result_src  = 2'b00;
 
-        // ============================================================
-        // I–TYPE ALU (ADDI/etc)
-        // ============================================================
-        `OPCODE_I_TYPE: begin
-            reg_write   = 1;
-            alu_a_src   = 0;
-            alu_b_src   = 1;
-            mem_read    = 0;
-            mem_write   = 0;
-            mem_size    = 0;
-            is_signed   = 0;
-            pc_src      = 0;
-            imm_sel     = `IMM_I;
-            result_src  = 2'b00;   // ALU result
-        end
+        case ({funct7, funct3})
+            10'b0000000_000: alu_sel = `ADD;
+            10'b0100000_000: alu_sel = `SUB;
+            10'b0000000_100: alu_sel = `XOR;
+            10'b0000000_110: alu_sel = `OR;
+            10'b0000000_111: alu_sel = `AND;
+            10'b0000000_001: alu_sel = `SLL;
+            10'b0000000_101: alu_sel = `SRL;
+            10'b0100000_101: alu_sel = `SRA;
+            10'b0000000_010: alu_sel = `SLT;
+            10'b0000000_011: alu_sel = `SLTU;
+            default:          alu_sel = `ADD;
+        endcase
+    end
 
-        // ============================================================
-        // LOAD
-        // ============================================================
-        `OPCODE_LOAD: begin
-            reg_write   = 1;
-            alu_a_src   = 0;
-            alu_b_src   = 1;
-            mem_read    = 1;
-            mem_write   = 0;
-            pc_src      = 0;
-            imm_sel     = `IMM_I;
-            result_src  = 2'b01;   // Data memory output
 
-            case (funct3)
-                3'b000: begin mem_size = 2'b00; is_signed = 1; end // LB
-                3'b100: begin mem_size = 2'b00; is_signed = 0; end // LBU
-                3'b001: begin mem_size = 2'b01; is_signed = 1; end // LH
-                3'b101: begin mem_size = 2'b01; is_signed = 0; end // LHU
-                3'b010: begin mem_size = 2'b10; is_signed = 1; end // LW
-                default: begin mem_size = 2'b00; is_signed = 0; end
-            endcase
-        end
+    // ==========================================================
+    // I–TYPE (ADDI, XORI, ORI, ANDI, shifts)
+    // ==========================================================
+    `OPCODE_I_TYPE: begin
+        reg_write   = 1;
+        alu_a_src   = 0;
+        alu_b_src   = 1;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_I;
+        result_src  = 2'b00;
 
-        // ============================================================
-        // STORE
-        // ============================================================
-        `OPCODE_STORE: begin
-            reg_write   = 0;
-            alu_a_src   = 0;
-            alu_b_src   = 1;
-            mem_read    = 0;
-            mem_write   = 1;
-            pc_src      = 0;
-            imm_sel     = `IMM_S;
-            result_src  = 2'b00;   // ALU result (ignored)
-            is_signed   = 0;
+        case (funct3)
+            3'b000: alu_sel = `ADD;
+            3'b100: alu_sel = `XOR;
+            3'b110: alu_sel = `OR;
+            3'b111: alu_sel = `AND;
+            3'b001: alu_sel = `SLL;
+            3'b101: alu_sel = (funct7 == 7'b0100000) ? `SRA : `SRL;
+            3'b010: alu_sel = `SLT;
+            3'b011: alu_sel = `SLTU;
+            default: alu_sel = `ADD;
+        endcase
+    end
 
-            case (funct3)
-                3'b000: mem_size = 2'b00; // SB
-                3'b001: mem_size = 2'b01; // SH
-                3'b010: mem_size = 2'b10; // SW
-                default: mem_size = 2'b00;
-            endcase
-        end
 
-        // ============================================================
-        // BRANCH
-        // ============================================================
-        `OPCODE_BRANCH: begin
-            reg_write   = 0;
-            alu_a_src   = 0;
-            alu_b_src   = 0;
-            mem_read    = 0;
-            mem_write   = 0;
-            mem_size    = 0;
-            is_signed   = 0;
-            imm_sel     = `IMM_B;
-            result_src  = 0;
+    // ==========================================================
+    // LOAD (LB, LH, LW, LBU, LHU)
+    // ==========================================================
+    `OPCODE_LOAD: begin
+        reg_write   = 1;
+        alu_a_src   = 0;
+        alu_b_src   = 1;
+        mem_read    = 1;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_I;
+        result_src  = 2'b01;
+        alu_sel     = `ADD;     // Effective address = rs1 + imm
+    end
 
-            case (funct3)
-                3'b000: pc_src =  (zero);       
-                3'b001: pc_src = (!zero);       
-                3'b100: pc_src =  (lt_signed);  
-                3'b101: pc_src = (!lt_signed);  
-                3'b110: pc_src =  (lt_unsigned);
-                3'b111: pc_src = (!lt_unsigned);
-                default: pc_src = 0;
-            endcase
-        end
 
-        // ============================================================
-        // JAL — rd = PC+4, PC = PC + imm
-        // ============================================================
-        `OPCODE_JAL: begin
-            reg_write   = 1;
-            alu_a_src   = 0;
-            alu_b_src   = 0;
-            mem_read    = 0;
-            mem_write   = 0;
-            mem_size    = 0;
-            is_signed   = 0;
-            pc_src      = 1;
-            imm_sel     = `IMM_J;
-            result_src  = 2'b11;  // PC+4
-        end
+    // ==========================================================
+    // STORE (SB, SH, SW)
+    // ==========================================================
+    `OPCODE_STORE: begin
+        reg_write   = 0;
+        alu_a_src   = 0;
+        alu_b_src   = 1;
+        mem_read    = 0;
+        mem_write   = 1;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_S;
+        result_src  = 2'b00;
+        alu_sel     = `ADD;
+    end
 
-        // ============================================================
-        // JALR
-        // ============================================================
-        `OPCODE_JALR: begin
-            reg_write   = 1;
-            alu_a_src   = 0;
-            alu_b_src   = 1;
-            mem_read    = 0;
-            mem_write   = 0;
-            pc_src      = 1;
-            imm_sel     = `IMM_I;
-            result_src  = 2'b11;  // PC+4
-            mem_size    = 0;
-            is_signed   = 0;
-        end
 
-        // ============================================================
-        // LUI — rd = imm[31:12] << 12
-        // ============================================================
-        `OPCODE_LUI: begin
-            reg_write   = 1;
-            alu_a_src   = 0;
-            alu_b_src   = 0; // ALU unused but harmless
-            mem_read    = 0;
-            mem_write   = 0;
-            pc_src      = 0;
-            imm_sel     = `IMM_U;
-            result_src  = 2'b10;  // immediate goes to rd
-            mem_size    = 0;
-            is_signed   = 0;
-        end
+    // ==========================================================
+    // BRANCH (BEQ, BNE, BLT, BGE, BLTU, BGEU)
+    // ==========================================================
+    `OPCODE_BRANCH: begin
+        reg_write   = 0;
+        alu_a_src   = 0;
+        alu_b_src   = 0;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_B;
+        result_src  = 2'b00;
+        alu_sel     = `SUB;
 
-        // ============================================================
-        // AUIPC — ALU = PC + imm
-        // ============================================================
-        `OPCODE_AUIPC: begin
-            reg_write   = 1;
-            alu_a_src   = 1; // use PC
-            alu_b_src   = 1; // imm
-            mem_read    = 0;
-            mem_write   = 0;
-            pc_src      = 0;
-            imm_sel     = `IMM_U;
-            result_src  = 2'b00;  // ALU result
-            mem_size    = 0;
-            is_signed   = 0;
-        end
+        case (funct3)
+            3'b000: if (zero)        pc_src = 2'b01; // BEQ
+            3'b001: if (!zero)       pc_src = 2'b01; // BNE
+            3'b100: if (lt_signed)   pc_src = 2'b01; // BLT
+            3'b101: if (!lt_signed)  pc_src = 2'b01; // BGE
+            3'b110: if (lt_unsigned) pc_src = 2'b01; // BLTU
+            3'b111: if (!lt_unsigned)pc_src = 2'b01; // BGEU
+        endcase
+    end
 
-        // ============================================================
-        // DEFAULT (NOP)
-        // ============================================================
-        default: begin
-            reg_write   = 0;
-            alu_a_src   = 0;
-            alu_b_src   = 0;
-            mem_read    = 0;
-            mem_write   = 0;
-            mem_size    = 2'b00;
-            is_signed   = 0;
-            pc_src      = 0;
-            imm_sel     = `IMM_NONE;
-            result_src  = 2'b00;
-        end
+
+    // ==========================================================
+    // JAL — PC = PC + imm, rd = PC+4
+    // ==========================================================
+    `OPCODE_JAL: begin
+        reg_write   = 1;
+        alu_a_src   = 0;
+        alu_b_src   = 0;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b01;   // target
+        imm_sel     = `IMM_J;
+        result_src  = 2'b11;   // PC+4
+        alu_sel     = `ADD;
+    end
+
+
+    // ==========================================================
+    // JALR — PC = (rs1 + imm) & ~1
+    // ==========================================================
+    `OPCODE_JALR: begin
+        reg_write   = 1;
+        alu_a_src   = 0;
+        alu_b_src   = 1;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b10;  // ALU → PC
+        imm_sel     = `IMM_I;
+        result_src  = 2'b11;
+        alu_sel     = `ADD;
+    end
+
+
+    // ==========================================================
+    // LUI — rd = imm << 12
+    // ==========================================================
+    `OPCODE_LUI: begin
+        reg_write   = 1;
+        alu_a_src   = 0;
+        alu_b_src   = 0;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_U;
+        result_src  = 2'b10;
+        alu_sel     = `ADD; // ALU not used
+    end
+
+
+    // ==========================================================
+    // AUIPC — rd = PC + (imm << 12)
+    // ==========================================================
+    `OPCODE_AUIPC: begin
+        reg_write   = 1;
+        alu_a_src   = 1;   // PC
+        alu_b_src   = 1;   // imm
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_U;
+        result_src  = 2'b00;
+        alu_sel     = `ADD;
+    end
+
+    // ==========================================================
+    // DEFAULT CASE
+    // ==========================================================
+    default: begin
+        reg_write   = 0;
+        alu_a_src   = 0;
+        alu_b_src   = 0;
+        mem_read    = 0;
+        mem_write   = 0;
+        mem_funct3  = funct3;
+        pc_src      = 2'b00;
+        imm_sel     = `IMM_NONE;
+        result_src  = 2'b00;
+        alu_sel     = `ADD;
+    end
+
     endcase
-end
 
+end
 endmodule

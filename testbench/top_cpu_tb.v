@@ -35,24 +35,18 @@ initial begin
     $dumpvars(0, top_tb);
 end
 
-// -----------------------------
-// PRINT REGISTER FILE EACH CYCLE
-// -----------------------------
 integer i;
 
+// -----------------------------
+// PER-CYCLE PRINT (OPTIONAL)
+// -----------------------------
 always @(posedge top_clk) begin
     $display("\n================ CYCLE @ %0t ns ================", $time);
 
-    // Print PC
     $display("PC  = %h", uut.pc_addr);
-
-    // Print ALU output
     $display("ALU = %h", uut.alu_out_wire);
-
-    // Print Data Memory output
     $display("DMem Read = %h", uut.mem_out_wire);
 
-    // Print all 32 registers
     $display("Register File:");
     for (i = 0; i < 32; i = i + 1) begin
         $display("x%0d = %h", i, uut.reg_file.register[i]);
@@ -61,13 +55,38 @@ always @(posedge top_clk) begin
     $display("=================================================\n");
 end
 
-// -----------------------------
-// END SIMULATION AFTER TIMEOUT
-// -----------------------------
+
+// =====================================================
+// FINAL REGISTER FILE DUMP (AFTER SIMULATION)
+// =====================================================
 initial begin
-    #2000;   // Sim runs for 2000ns (adjust for program length)
-    $display("Simulation finished.");
+    #2000;  // simulation stop time
+
+    $display("\n================ FINAL REGISTER FILE ================\n");
+
+    for (i = 0; i < 32; i = i + 1) begin
+        $display("x%0d = %h", i, uut.reg_file.register[i]);
+    end
+
+    $display("\n=====================================================\n");
+
     $finish;
 end
+
+
+/*
+// -----------------------------
+// END SIMULATION + DUMP MEMORY
+// -----------------------------
+initial begin
+    #2000;
+
+    $display("\nFINAL REGISTER FILE & MEMORY DUMP:\n");
+
+    uut.Data_mem.dump_memory_bytes();   // <-- WORKS NOW
+
+    $finish;
+end
+*/
 
 endmodule

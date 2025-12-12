@@ -1,99 +1,165 @@
-module data_mem(
-    output reg [31:0] read_data,
-    input  [31:0] addr,
-    input  [31:0] write_data,
-    input         mem_read,
-    input         mem_write,
-    input  [1:0]  mem_size,
-    input         is_signed,
-    input         clk,
-    input         rst
+`timescale 1ns / 1ps
+
+module data_mem (
+    output reg [31:0] read_data, // result of load
+
+    // Control signals
+    input read_en,
+    input write_en,
+
+    // Address and data
+    input [31:0] address,       // byte address
+    input [31:0] write_data,    // data for store
+    input [2:0]  funct3,        // LOAD/STORE funct3 determines size/sign
+
+    input clk,
+    input rst
 );
 
-parameter MEMORY_SIZE_BYTES = 1024;
-
-reg [7:0] memory [0:MEMORY_SIZE_BYTES-1];
-
-reg [7:0]  byte_data;
-reg [15:0] half_word;
+// memory: 255 x 32-bit words
+reg [31:0] mem [0:255];
 
 integer i;
 
-// ============================================================================
-// Synchronous WRITE logic
-// ============================================================================
-always @(posedge clk or posedge rst) begin
-    if (rst) begin
-        for (i = 0; i < MEMORY_SIZE_BYTES; i = i + 1)
-            memory[i] <= 8'b0;
-    end 
-    else if (mem_write) begin
-        case (mem_size)
-            2'b00: begin // SB
-                memory[addr] <= write_data[7:0];
-            end 
+// ------------------------------------------------------------
+// Memory Initialization
+// ------------------------------------------------------------
+initial begin
+    for (i = 0; i < 1024; i = i + 1)
+        mem[i] = 32'b0;
 
-            2'b01: begin // SH
-                memory[addr]     <= write_data[7:0];
-                memory[addr + 1] <= write_data[15:8];
-            end 
-
-            2'b10: begin // SW
-                memory[addr]     <= write_data[7:0];
-                memory[addr + 1] <= write_data[15:8];
-                memory[addr + 2] <= write_data[23:16];
-                memory[addr + 3] <= write_data[31:24];
-            end
-        endcase
-    end
+    // Optional test preload
+    //mem[0] = 32'hAABBCCDD;
 end
 
-// ============================================================================
-// Combinational READ logic
-// ============================================================================
+// ------------------------------------------------------------
+// Decode address
+// ------------------------------------------------------------
+wire [9:0] word_addr = address[31:2];   // select word
+wire [1:0] byte_off  = address[1:0];    // which byte in the word
+
+// Extract existing bytes from selected word
+wire [7:0] b0 = mem[word_addr][7:0];
+wire [7:0] b1 = mem[word_addr][15:8];
+wire [7:0] b2 = mem[word_addr][23:16];
+wire [7:0] b3 = mem[word_addr][31:24];
+
+// ------------------------------------------------------------
+// Combinational READ logic (like your original data_mem)
+// Supports LB/LBU/LH/LHU/LW
+// ------------------------------------------------------------
 always @(*) begin
-    // default value
     read_data = 32'b0;
 
-    if (mem_read) begin
-        case (mem_size)
-            // -------------------------------------------------
-            // BYTE LOAD
-            // -------------------------------------------------
-            2'b00: begin
-                byte_data = memory[addr];
+    if (read_en) begin
+        case (funct3)
 
-                if (is_signed)
-                    read_data = {{24{byte_data[7]}}, byte_data};
-                else
-                    read_data = {24'b0, byte_data};
+            3'b000: begin // LB
+                case (byte_off)
+                    2'b00: read_data = {{24{b0[7]}}, b0};
+                    2'b01: read_data = {{24{b1[7]}}, b1};
+                    2'b10: read_data = {{24{b2[7]}}, b2};
+                    2'b11: read_data = {{24{b3[7]}}, b3};
+                endcase
             end
 
-            // -------------------------------------------------
-            // HALFWORD LOAD
-            // -------------------------------------------------
-            2'b01: begin
-                half_word = {memory[addr+1], memory[addr]};
-
-                if (is_signed)
-                    read_data = {{16{half_word[15]}}, half_word};
-                else
-                    read_data = {16'b0, half_word};
+            3'b100: begin // LBU
+                case (byte_off)
+                    2'b00: read_data = {24'b0, b0};
+                    2'b01: read_data = {24'b0, b1};
+                    2'b10: read_data = {24'b0, b2};
+                    2'b11: read_data = {24'b0, b3};
+                endcase
             end
 
-            // -------------------------------------------------
-            // WORD LOAD
-            // -------------------------------------------------
-            2'b10: begin
-                read_data = {
-                    memory[addr + 3],
-                    memory[addr + 2],
-                    memory[addr + 1],
-                    memory[addr]
-                };
+            3'b001: begin // LH
+                if (byte_off == 2'b00)
+                    read_data = {{16{b1[7]}}, b1, b0};
+                else if (byte_off == 2'b10)
+                    read_data = {{16{b3[7]}}, b3, b2};
+            end
+
+            3'b101: begin // LHU
+                if (byte_off == 2'b00)
+                    read_data = {16'b0, b1, b0};
+                else if (byte_off == 2'b10)
+                    read_data = {16'b0, b3, b2};
+            end
+
+            3'b010: begin // LW (must be word-aligned)
+                read_data = {b3, b2, b1, b0};
+            end
+
+            default: read_data = 32'b0;
+        endcase
+    end
+end
+
+// ------------------------------------------------------------
+// Sequential WRITE logic
+// Uses RV32I SB/SH/SW behavior
+// ------------------------------------------------------------
+always @(posedge clk) begin
+    if (rst) begin
+        for (i = 0; i < 1024; i = i + 1)
+            mem[i] <= 32'b0;
+    end
+
+    else if (write_en) begin
+        case (funct3)
+
+            // -----------------------------------------
+            // SB — store one byte at offset
+            // -----------------------------------------
+            3'b000: begin
+                case (byte_off)
+                    2'b00: mem[word_addr][7:0]   <= write_data[7:0];
+                    2'b01: mem[word_addr][15:8]  <= write_data[7:0];
+                    2'b10: mem[word_addr][23:16] <= write_data[7:0];
+                    2'b11: mem[word_addr][31:24] <= write_data[7:0];
+                endcase
+            end
+
+            // -----------------------------------------
+            // SH — store half-word
+            // Must be either offset 0 or 2
+            // -----------------------------------------
+            3'b001: begin
+                if (byte_off == 2'b00) begin
+                    mem[word_addr][15:0] <= write_data[15:0];
+                end
+                else if (byte_off == 2'b10) begin
+                    mem[word_addr][31:16] <= write_data[15:0];
+                end
+            end
+
+            // -----------------------------------------
+            // SW — store full word
+            // -----------------------------------------
+            3'b010: begin
+                mem[word_addr] <= write_data;
             end
         endcase
     end
 end
 
+// ============================================================================
+// Task to dump memory contents (for debugging)
+// ============================================================================
+integer k;
+
+task dump_memory_bytes;
+    reg [7:0] byte0, byte1, byte2, byte3;
+    begin
+        $display("\n===== BYTE-LEVEL MEMORY DUMP =====");
+        for (k = 0; k < 256; k = k + 1) begin
+            byte0 = mem[k][7:0];
+            byte1 = mem[k][15:8];
+            byte2 = mem[k][23:16];
+            byte3 = mem[k][31:24];
+            $display("word[%0d] = %02h %02h %02h %02h", k, byte3, byte2, byte1, byte0);
+        end
+        $display("==================================\n");
+    end
+endtask
 endmodule
