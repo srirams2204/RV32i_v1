@@ -319,6 +319,588 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "DIGITAL_BLOCKS:Control_Unit"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 18.542 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Control_Unit_0_1"
+				(rectangle
+					(start -12.7 15.24)
+					(end 12.7 -15.24)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type color)
+						(color 255 255 194 1)
+					)
+				)
+			)
+			(symbol "Control_Unit_1_1"
+				(text "CU"
+					(at -9.652 12.7 0)
+					(effects
+						(font
+							(size 2 2)
+							(thickness 0.4)
+							(bold yes)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 6.35 0)
+					(length 2.54)
+					(name "funct3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 3.81 0)
+					(length 2.54)
+					(name "funct7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 1.27 0)
+					(length 2.54)
+					(name "opcode"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -1.27 0)
+					(length 2.54)
+					(name "zero"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -3.81 0)
+					(length 2.54)
+					(name "lt_signed"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -6.35 0)
+					(length 2.54)
+					(name "lt_signed"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 11.43 180)
+					(length 2.54)
+					(name "reg_write"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 8.89 180)
+					(length 2.54)
+					(name "alu_a_src"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 6.35 180)
+					(length 2.54)
+					(name "alu_b_src"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 3.81 180)
+					(length 2.54)
+					(name "mem_read"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 1.27 180)
+					(length 2.54)
+					(name "mem_write"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 -1.27 180)
+					(length 2.54)
+					(name "mem_funct3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 -3.81 180)
+					(length 2.54)
+					(name "pc_src"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 -6.35 180)
+					(length 2.54)
+					(name "imm_sel"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 -8.89 180)
+					(length 2.54)
+					(name "result_src"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "15"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at 15.24 -11.43 180)
+					(length 2.54)
+					(name "alu_sel"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "16"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "DIGITAL_BLOCKS:Data_Memory"
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "U"
+				(at 0 16.002 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Data_Memory_0_1"
+				(rectangle
+					(start -12.7 13.97)
+					(end 12.7 -13.97)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type color)
+						(color 255 255 194 1)
+					)
+				)
+			)
+			(symbol "Data_Memory_1_1"
+				(text "DM"
+					(at 9.144 11.176 0)
+					(effects
+						(font
+							(size 2 2)
+							(thickness 0.4)
+							(bold yes)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 11.43 0)
+					(length 2.54)
+					(name "addr"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 8.89 0)
+					(length 2.54)
+					(name "write_data"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 3.81 0)
+					(length 2.54)
+					(name "mem_read"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 1.27 0)
+					(length 2.54)
+					(name "mem_write"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -1.27 0)
+					(length 2.54)
+					(name "funct3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input clock
+					(at -15.24 -8.89 0)
+					(length 2.54)
+					(name "clk"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -15.24 -11.43 0)
+					(length 2.54)
+					(name "rst"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 15.24 0 180)
+					(length 2.54)
+					(name "read_data"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "DIGITAL_BLOCKS:Instruction_Decoder"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -1316,380 +1898,6 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "DIGITAL_BLOCKS:alu_control"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at -5.842 7.874 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "alu_control_0_1"
-				(rectangle
-					(start -6.35 6.35)
-					(end 6.35 -6.35)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type color)
-						(color 255 255 194 1)
-					)
-				)
-			)
-			(symbol "alu_control_1_1"
-				(pin input line
-					(at -3.81 -8.89 90)
-					(length 2.54)
-					(name "opcode"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 0 8.89 270)
-					(length 2.54)
-					(name "sel"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 0 -8.89 90)
-					(length 2.54)
-					(name "funct3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at 3.81 -8.89 90)
-					(length 2.54)
-					(name "funct7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
-		(symbol "Data_Memory_1"
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "U"
-				(at 0 16.002 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Data_Memory_1_0_1"
-				(rectangle
-					(start -12.7 13.97)
-					(end 12.7 -13.97)
-					(stroke
-						(width 0)
-						(type default)
-					)
-					(fill
-						(type color)
-						(color 255 255 194 1)
-					)
-				)
-			)
-			(symbol "Data_Memory_1_1_1"
-				(text "DM"
-					(at 9.144 11.176 0)
-					(effects
-						(font
-							(size 2 2)
-							(thickness 0.4)
-							(bold yes)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 11.43 0)
-					(length 2.54)
-					(name "addr"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 8.89 0)
-					(length 2.54)
-					(name "write_data"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "3"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 3.81 0)
-					(length 2.54)
-					(name "mem_read"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "4"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 1.27 0)
-					(length 2.54)
-					(name "mem_write"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "5"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 -1.27 0)
-					(length 2.54)
-					(name "mem_size"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "6"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 -3.81 0)
-					(length 2.54)
-					(name "is_signed"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "7"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input clock
-					(at -15.24 -8.89 0)
-					(length 2.54)
-					(name "clk"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin input line
-					(at -15.24 -11.43 0)
-					(length 2.54)
-					(name "rst"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-				(pin output line
-					(at 15.24 0 180)
-					(length 2.54)
-					(name "read_data"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "8"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Immediate_Generator_1"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -2058,6 +2266,16 @@
 			(type default)
 		)
 		(uuid "3d7e23f6-02fe-4baa-b595-22347ab16dfd")
+	)
+	(wire
+		(pts
+			(xy 20.32 100.33) (xy 24.13 100.33)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e2dd5ea-7de1-41f3-80ee-873189dd8ac2")
 	)
 	(wire
 		(pts
@@ -2709,6 +2927,16 @@
 		)
 		(uuid "ff7821b2-039b-4f38-aa5a-8e6c82577a2f")
 	)
+	(label "0x0"
+		(at 20.32 100.33 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "02862449-9dae-4451-a4c8-d9ece59904af")
+	)
 	(label "imm_out"
 		(at 132.08 146.05 0)
 		(effects
@@ -2718,16 +2946,6 @@
 			(justify left bottom)
 		)
 		(uuid "0ce40b8d-42dd-4926-8fbd-74b5a309b1f9")
-	)
-	(label "pc_mux_in0"
-		(at 16.51 92.71 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "2ece8b8e-e7a3-493f-957c-2b24cbb30ed3")
 	)
 	(label "pc_addr"
 		(at 67.31 102.87 270)
@@ -2787,6 +3005,29 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "alu_sel_wire"
+		(shape input)
+		(at 210.82 114.3 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify right)
+		)
+		(uuid "07956b55-5784-4dca-b6f0-44c68988e43a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 210.82 128.7756 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
 				(hide yes)
 			)
 		)
@@ -2859,24 +3100,71 @@
 			)
 		)
 	)
-	(global_label "sign"
+	(global_label "lt_signed"
 		(shape input)
-		(at 232.41 115.57 180)
+		(at 127 50.8 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 0 0 1)
 			)
 			(justify right)
 		)
-		(uuid "29c1f8a9-9aa0-4328-97b4-bd96c8bcd6ae")
+		(uuid "1b0c9c22-4085-491f-875e-1fde0d29be19")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 225.4939 115.57 0)
+			(at 115.4878 50.8 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
 				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "funct3"
+		(shape input)
+		(at 157.48 48.26 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "24edc1e5-5572-4b6b-8f65-fb91554feb5c")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 166.5127 48.26 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "alu_b_src"
+		(shape input)
+		(at 157.48 40.64 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "26699f92-d3ad-4a8a-8a5f-4f3dac5de8fd")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 169.4155 40.64 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
 				(hide yes)
 			)
 		)
@@ -2903,19 +3191,20 @@
 			)
 		)
 	)
-	(global_label "mems"
+	(global_label "funct3"
 		(shape input)
 		(at 232.41 113.03 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 0 0 1)
 			)
 			(justify right)
 		)
 		(uuid "39016df2-2a85-4700-9bfd-fc86af70850a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 223.9215 113.03 0)
+			(at 223.3773 113.03 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2948,19 +3237,20 @@
 			)
 		)
 	)
-	(global_label "memw"
+	(global_label "zero"
 		(shape input)
-		(at 232.41 110.49 180)
+		(at 127 48.26 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 0 0 1)
 			)
 			(justify right)
 		)
-		(uuid "4104893b-9a91-4bd8-917d-4573195f4c7a")
+		(uuid "3da25f7f-821f-464e-bb71-3115397a560d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 223.6191 110.49 0)
+			(at 119.9629 48.26 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2970,19 +3260,20 @@
 			)
 		)
 	)
-	(global_label "funct7"
+	(global_label "memw"
 		(shape input)
-		(at 214.63 132.08 270)
+		(at 232.41 110.49 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 0 0 1)
 			)
 			(justify right)
 		)
-		(uuid "47014f36-cb69-4aa1-a7b8-3ac4cfee0946")
+		(uuid "4104893b-9a91-4bd8-917d-4573195f4c7a")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 214.63 141.1127 90)
+			(at 223.6191 110.49 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2999,12 +3290,35 @@
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 0 0 1)
 			)
 			(justify right)
 		)
 		(uuid "4bcdd60b-bb5e-4cbf-aa23-d7a417cf08d7")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 224.1634 107.95 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "opcode"
+		(shape input)
+		(at 127 45.72 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "6b188f57-c170-462b-ac8e-2590f32e352a")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 117.2416 45.72 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3082,6 +3396,75 @@
 			)
 		)
 	)
+	(global_label "alu_a_src"
+		(shape input)
+		(at 157.48 38.1 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "7ed204ca-c79d-418d-b92b-c386f07379e0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 169.4155 38.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "result_src"
+		(shape input)
+		(at 157.48 55.88 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "82ee37a3-dc05-4543-8692-5746025cd54f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 169.7785 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "lt_unsigned"
+		(shape input)
+		(at 127 53.34 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify right)
+		)
+		(uuid "89579bfa-02a8-42eb-8d4e-f21e308f2529")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 113.1898 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "sys_clk"
 		(shape input)
 		(at 232.41 120.65 180)
@@ -3104,9 +3487,9 @@
 			)
 		)
 	)
-	(global_label "opcode"
+	(global_label "funct3"
 		(shape input)
-		(at 207.01 132.08 270)
+		(at 127 40.64 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -3114,9 +3497,9 @@
 			)
 			(justify right)
 		)
-		(uuid "9cc0270a-8fa9-48eb-b1db-20c98552ffea")
+		(uuid "9a4ce931-3409-4388-86c0-81b362c3b5ad")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 207.01 141.8384 90)
+			(at 117.9673 40.64 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3140,6 +3523,75 @@
 		(uuid "9cd2ce3c-70a1-4ecf-96e6-fd0192bd8122")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 30.48 73.4567 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "memw"
+		(shape input)
+		(at 157.48 45.72 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "a15ab90f-9eff-45c0-966e-421e4b434bc8")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 166.2709 45.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "pc_src"
+		(shape input)
+		(at 157.48 50.8 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "a50c48d5-b7ef-445c-8f0a-5c6286603f58")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 166.5733 50.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "reg_write"
+		(shape input)
+		(at 157.48 35.56 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "a886ca33-7cfe-4762-9768-7b3d2bead92b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 168.9924 35.56 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3194,6 +3646,28 @@
 			)
 		)
 	)
+	(global_label "funct7"
+		(shape input)
+		(at 127 43.18 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "bba8d81d-2aac-4fb1-8ac7-8c7c06e48be1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 117.9673 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify right)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "sys_clk"
 		(shape input)
 		(at 45.72 104.14 180)
@@ -3238,6 +3712,29 @@
 			)
 		)
 	)
+	(global_label "imm_sel"
+		(shape input)
+		(at 157.48 53.34 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "e01fb63a-f846-42a6-b40e-33033f02a008")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 168.2061 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "lt_unsigned"
 		(shape input)
 		(at 208.28 86.36 90)
@@ -3257,28 +3754,6 @@
 					(size 1.27 1.27)
 				)
 				(justify left)
-				(hide yes)
-			)
-		)
-	)
-	(global_label "funct3"
-		(shape input)
-		(at 210.82 132.08 270)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "f287345a-2ac1-4cfd-a8df-f25de1f5f5f8")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 210.82 141.1127 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
 				(hide yes)
 			)
 		)
@@ -3312,12 +3787,59 @@
 		(effects
 			(font
 				(size 1.27 1.27)
+				(color 0 0 0 1)
 			)
 			(justify left)
 		)
 		(uuid "f9357dbe-ccfd-4590-b9c7-83686e2d9036")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 115.57 121.3539 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "memr"
+		(shape input)
+		(at 157.48 43.18 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "fb0e11d6-5923-4493-82da-a81d7dd5cc84")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 165.7266 43.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(global_label "alu_sel_wire"
+		(shape input)
+		(at 157.48 58.42 0)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+				(color 0 0 0 1)
+			)
+			(justify left)
+		)
+		(uuid "fedf2e2e-98b9-4837-b30d-e0d29ceb096d")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 171.9556 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3624,7 +4146,6 @@
 		)
 	)
 	(symbol
-		(lib_name "Data_Memory_1")
 		(lib_id "DIGITAL_BLOCKS:Data_Memory")
 		(at 247.65 111.76 0)
 		(unit 1)
@@ -3632,8 +4153,8 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "5a09b288-7177-4122-bbe3-cda92ce2785e")
-		(property "Reference" "U13"
+		(uuid "5a33dc26-ab15-4b90-bd7c-5d9d507041b4")
+		(property "Reference" "U15"
 			(at 247.65 94.234 0)
 			(effects
 				(font
@@ -3676,37 +4197,34 @@
 				(hide yes)
 			)
 		)
-		(pin "2"
-			(uuid "891af746-f47b-4383-912b-0736c81d3a0a")
-		)
-		(pin "6"
-			(uuid "81c7efac-d7ba-42a6-9fcb-9499e121c1ea")
-		)
-		(pin "2"
-			(uuid "464df797-b7f6-4774-9da3-ff7912086225")
-		)
-		(pin "5"
-			(uuid "97decd91-fc33-40b9-9687-2d63da76e5c6")
-		)
-		(pin "1"
-			(uuid "f5532c55-b226-42c5-a969-2c3c6745d5aa")
-		)
-		(pin "7"
-			(uuid "0406c6d8-cce1-47ae-98ce-382de4187c55")
-		)
-		(pin "4"
-			(uuid "42f14fff-6c95-4f05-a38f-9e4c7afa55c6")
-		)
 		(pin "8"
-			(uuid "6208134a-f5ed-494c-94d9-9ac460013062")
+			(uuid "98a781d8-5ede-4c72-9e32-e43e67b3af5f")
 		)
 		(pin "3"
-			(uuid "a1ed7427-f985-483c-8d38-63d05fb953fc")
+			(uuid "7fd5e5e3-072f-4fc0-b845-ffe83eb51a5e")
+		)
+		(pin "5"
+			(uuid "5ce53728-c7e5-441a-82aa-cb3ab7cc3962")
+		)
+		(pin "6"
+			(uuid "b216cb48-62f0-4fd5-8ad1-a5060e05d291")
+		)
+		(pin "4"
+			(uuid "3f9cbd4c-bc1d-414f-9b30-66735ab0cb56")
+		)
+		(pin "2"
+			(uuid "c9e6a761-5b9c-49a2-9269-51c59734fa22")
+		)
+		(pin "7"
+			(uuid "bdebaacb-62ba-4965-8762-4c72587cc809")
+		)
+		(pin "1"
+			(uuid "77c5448f-3cbf-4e91-bf8c-d85a89b0c601")
 		)
 		(instances
 			(project ""
 				(path "/d7c3a15c-dbd4-453f-90b4-0819154ac5ab"
-					(reference "U13")
+					(reference "U15")
 					(unit 1)
 				)
 			)
@@ -4000,6 +4518,115 @@
 			(project ""
 				(path "/d7c3a15c-dbd4-453f-90b4-0819154ac5ab"
 					(reference "U2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "DIGITAL_BLOCKS:Control_Unit")
+		(at 142.24 46.99 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b7873bc4-0352-4ca8-8cda-cc96c0a9dc73")
+		(property "Reference" "U12"
+			(at 142.24 28.194 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "Control_Unit"
+			(at 142.24 30.226 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 142.24 46.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "13"
+			(uuid "34266e18-4f0e-4345-8c78-3a4f9a4e461d")
+		)
+		(pin "11"
+			(uuid "44ae4014-ac36-4149-8aee-14640ce23249")
+		)
+		(pin "10"
+			(uuid "634f3cf0-7e32-44b3-8a99-ebeccc46d3fe")
+		)
+		(pin "14"
+			(uuid "fc0b2225-7ee8-4169-819c-dbdb10c1ed7b")
+		)
+		(pin "15"
+			(uuid "d1bf3741-27bc-42f1-8597-a43ca6a01ab0")
+		)
+		(pin "8"
+			(uuid "50994a12-92f0-42d7-bbf4-9321a1e9df3e")
+		)
+		(pin "9"
+			(uuid "d41091d8-acca-4b0a-9461-fec3ff511d1a")
+		)
+		(pin "4"
+			(uuid "e53dd4c7-26fe-4a87-9e47-9e7f6f27e474")
+		)
+		(pin "3"
+			(uuid "01562204-42dd-45d2-b5b9-ae7db5f784ac")
+		)
+		(pin "16"
+			(uuid "2de04a99-1f72-4e61-9a3b-584a2459dbe8")
+		)
+		(pin "12"
+			(uuid "02e815ce-fb18-4331-a997-5c17f1128b77")
+		)
+		(pin "2"
+			(uuid "4d0c9690-9dfa-4a98-98e4-fac63bd70bff")
+		)
+		(pin "1"
+			(uuid "e3e24dd2-d561-4238-8ae7-c920f60fb947")
+		)
+		(pin "7"
+			(uuid "1a64bcf5-a432-473c-9606-ad31ffb8c6e5")
+		)
+		(pin "6"
+			(uuid "52ec6bda-846d-4482-860d-514881c424aa")
+		)
+		(pin "5"
+			(uuid "82a20a0c-4ec0-4e0c-aa9c-842d8c649635")
+		)
+		(instances
+			(project ""
+				(path "/d7c3a15c-dbd4-453f-90b4-0819154ac5ab"
+					(reference "U12")
 					(unit 1)
 				)
 			)
@@ -4322,81 +4949,6 @@
 			(project ""
 				(path "/d7c3a15c-dbd4-453f-90b4-0819154ac5ab"
 					(reference "U6")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "DIGITAL_BLOCKS:alu_control")
-		(at 210.82 123.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "f9323f55-9486-446f-a583-409ccf61e7e4")
-		(property "Reference" "U12"
-			(at 199.898 124.968 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "ALU_Control"
-			(at 192.278 127.254 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 210.82 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 210.82 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 210.82 123.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "4"
-			(uuid "180932a0-5cc4-4cda-b3e8-17c625e659f7")
-		)
-		(pin "1"
-			(uuid "905b01f4-2c2f-4ecd-a38e-ccb5ea06d9b3")
-		)
-		(pin "3"
-			(uuid "19cbe3de-9aee-46d8-8837-2797547bfe18")
-		)
-		(pin "2"
-			(uuid "282f0200-0035-4726-b569-44ccfb0dd56f")
-		)
-		(instances
-			(project ""
-				(path "/d7c3a15c-dbd4-453f-90b4-0819154ac5ab"
-					(reference "U12")
 					(unit 1)
 				)
 			)
